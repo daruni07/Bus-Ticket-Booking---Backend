@@ -3,6 +3,8 @@ package com.springboot.busticketbooking.controller;
 import com.springboot.busticketbooking.dto.request.RouteStopReqDto;
 import com.springboot.busticketbooking.dto.request.RouteStopUpdateReqDto;
 import com.springboot.busticketbooking.dto.response.RouteRespDto;
+import com.springboot.busticketbooking.dto.response.RouteStopRespDto;
+import com.springboot.busticketbooking.model.RouteStop;
 import com.springboot.busticketbooking.service.RouteStopService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,11 @@ public class RouteStopController {
     public void updateRouteStop(@PathVariable Long routeStopId, @Valid @RequestBody RouteStopUpdateReqDto dto)
     {
         routeStopService.updateRouteStop(routeStopId, dto);
+    }
+    @GetMapping("/api/routeStop/route/{routeId}")
+    public List<RouteStopRespDto> getRouteStopsByRouteId(@PathVariable Long routeId) {
+
+        return routeStopService.getRouteStopsByRouteId(routeId);
     }
 }
 

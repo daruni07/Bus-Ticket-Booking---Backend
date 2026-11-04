@@ -11,6 +11,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RouteService {
@@ -40,5 +42,9 @@ public class RouteService {
             route.setDistance(routeUpdateReqDto.distance());
         }
         routeRepository.save(route);
+    }
+
+    public List<RouteRespDto> getAllRoutes() {
+       return routeRepository.getAllRoutes();
     }
 }

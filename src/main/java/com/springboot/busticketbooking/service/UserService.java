@@ -1,7 +1,9 @@
 package com.springboot.busticketbooking.service;
 
 import com.springboot.busticketbooking.dto.request.AdminDto;
+import com.springboot.busticketbooking.dto.response.DetailsDto;
 import com.springboot.busticketbooking.enums.Role;
+import com.springboot.busticketbooking.exception.InactiveUserException;
 import com.springboot.busticketbooking.model.User;
 import com.springboot.busticketbooking.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +29,11 @@ public class UserService {
         );
 
         userRepository.save(user);
+    }
+    public DetailsDto getUserDetails(String loggedInUsername) {
+        DetailsDto detailsDto = userRepository.getUserDetails(loggedInUsername);
+        if(!detailsDto.isActive())
+            throw new InactiveUserException("User is disabled");
+        return detailsDto;
     }
 }

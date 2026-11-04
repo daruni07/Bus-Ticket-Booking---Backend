@@ -30,7 +30,7 @@ public class BusOperatorService {
         busOperatorRepository.save(busOperator);
     }
 
-    public BusOperatorRespDto getBusById(Long busOperatorId) {
+    public BusOperatorRespDto getBusOperatorById(Long busOperatorId) {
         BusOperator busOperator=busOperatorRepository.findById(busOperatorId).orElseThrow(()->new ResourceNotFoundException("Invalid bus operator id"));
         return BusOperatorMapper.mapToDto(busOperator);
     }

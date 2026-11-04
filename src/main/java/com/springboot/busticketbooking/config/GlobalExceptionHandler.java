@@ -1,6 +1,7 @@
 package com.springboot.busticketbooking.config;
 
 import com.springboot.busticketbooking.dto.response.ErrorDto;
+import com.springboot.busticketbooking.exception.InactiveUserException;
 import com.springboot.busticketbooking.exception.InvalidCallException;
 import com.springboot.busticketbooking.exception.OwnershipException;
 import com.springboot.busticketbooking.exception.ResourceNotFoundException;
@@ -115,6 +116,20 @@ public class GlobalExceptionHandler {
                 .body(
                         new ErrorDto(e.getMessage(),
                                 "File is mandatory",
+                                Instant.now())
+                );
+    }
+    @ExceptionHandler(InactiveUserException.class)
+    public ResponseEntity<ErrorDto> handleInactiveUserException(
+            InactiveUserException e
+    ){
+        //always reply the object not the string
+
+        return ResponseEntity
+                .status(HttpStatus.PRECONDITION_FAILED)
+                .body(
+                        new ErrorDto(e.getMessage(),
+                                "Contact ADMIN admin@helpdesk.com",
                                 Instant.now())
                 );
     }

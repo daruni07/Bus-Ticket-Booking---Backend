@@ -35,4 +35,9 @@ public class BusController {
     {
         return busService.getBus(busId,principal.getName());
     }
+    @GetMapping("/api/bus/operator")
+    public List<BusRespDto> getBusesByOperator(Principal principal) {
+
+        return busService.getBusesByOperator(principal.getName());
+    }
 }

@@ -12,4 +12,12 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
 select b from Booking b where b.passenger.id=?1
 """)
     List<Booking> findByPassengerBooking(Long id);
+
+    @Query("""
+ SELECT b FROM Booking b
+    JOIN b.schedule s
+    JOIN s.bus bus
+    WHERE bus.operator.id = ?1
+""")
+    List<Booking> findByOperatorId(Long id);
 }

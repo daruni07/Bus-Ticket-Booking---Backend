@@ -1,6 +1,7 @@
 package com.springboot.busticketbooking.repository;
 
 
+import com.springboot.busticketbooking.dto.response.DetailsDto;
 import com.springboot.busticketbooking.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +13,12 @@ public interface UserRepository extends JpaRepository<User,Long> {
             from User u
             where u.username=?1 
             """)
-    UserDetails loadByUsername(String username, boolean b);
+    UserDetails loadByUsername(String username);
+
+    @Query("""
+ select u.username,u.isActive,u.role
+            from User u
+            where u.username=?1
+""")
+    DetailsDto getUserDetails(String loggedInUsername);
 }

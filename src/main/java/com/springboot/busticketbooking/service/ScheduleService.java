@@ -1,12 +1,10 @@
 package com.springboot.busticketbooking.service;
 
 import com.springboot.busticketbooking.dto.request.ScheduleUpdateReqDto;
-import com.springboot.busticketbooking.dto.response.BusRespDto;
 import com.springboot.busticketbooking.dto.response.BusSearchRespDto;
 import com.springboot.busticketbooking.dto.response.ScheduleRespDto;
 import com.springboot.busticketbooking.exception.ResourceNotFoundException;
 import com.springboot.busticketbooking.dto.request.ScheduleReqDto;
-import com.springboot.busticketbooking.mapper.BusMapper;
 import com.springboot.busticketbooking.mapper.ScheduleMapper;
 import com.springboot.busticketbooking.model.Bus;
 import com.springboot.busticketbooking.model.Route;
@@ -14,7 +12,6 @@ import com.springboot.busticketbooking.model.Schedule;
 import com.springboot.busticketbooking.repository.BusRepository;
 import com.springboot.busticketbooking.repository.RouteRepository;
 import com.springboot.busticketbooking.repository.ScheduleRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -74,5 +71,9 @@ public class ScheduleService {
                 schedule.getDepartureDatetime(),
                 schedule.getArrivalDatetime()
         );
+    }
+
+    public List<ScheduleRespDto> getAllSchedules() {
+        return scheduleRepository.getAllSchedules();
     }
 }

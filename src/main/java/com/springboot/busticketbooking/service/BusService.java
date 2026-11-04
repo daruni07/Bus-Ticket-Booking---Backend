@@ -68,4 +68,8 @@ public class BusService {
         }
         return BusMapper.mapToDto(bus);
     }
+
+    public List<BusRespDto> getBusesByOperator(String username) {
+        return busRepository.findBusesByOperatorUsername(username);
+    }
 }

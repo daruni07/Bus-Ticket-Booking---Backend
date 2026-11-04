@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class RouteController {
@@ -27,4 +29,8 @@ public class RouteController {
     public void updateRoute(@PathVariable Long routeId, @Valid @RequestBody RouteUpdateReqDto dto) {
 
         routeService.updateRoute(routeId, dto);}
+    @GetMapping("/api/route/getAll")
+    public List<RouteRespDto> getAllRoutes() {
+        return routeService.getAllRoutes();
+    }
 }

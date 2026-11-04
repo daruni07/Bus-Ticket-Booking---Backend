@@ -2,6 +2,7 @@ package com.springboot.busticketbooking.repository;
 
 import com.springboot.busticketbooking.dto.response.BusRespDto;
 import com.springboot.busticketbooking.dto.response.BusSearchRespDto;
+import com.springboot.busticketbooking.dto.response.ScheduleRespDto;
 import com.springboot.busticketbooking.model.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -42,4 +43,17 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
     """)
 
     List<BusSearchRespDto> searchBus(String source, String destination, LocalDateTime startDate, LocalDateTime endDate);
+
+    @Query("""
+    SELECT new com.springboot.busticketbooking.dto.response.ScheduleRespDto(
+        s.id,
+        s.bus.id,
+        s.route.id,
+        s.departureDatetime,
+        s.arrivalDatetime
+    )
+    FROM Schedule s
+    ORDER BY s.id
+""")
+    List<ScheduleRespDto> getAllSchedules();
 }

@@ -33,6 +33,7 @@ public class BookingService {
     private final ScheduleFareService scheduleFareService;
     private final PaymentRepository paymentRepository;
     private final RefundService refundService;
+    private final BusOperatorRepository busOperatorRepository;
     @Transactional
     public void createBooking(BookingReqDto bookingReqDto, String name) {
         Optional<Passenger> passengerOptional=passengerRepository.findByUsername(name);
@@ -181,5 +182,18 @@ public class BookingService {
         }
         booking.setBookingStatus(BookingStatus.CANCELLED);
         bookingRepository.save(booking);
+    }
+    public List<BookingRespDto> getOperatorBookings(String username) {
+
+        BusOperator operator = busOperatorRepository.findByUserName(username)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Bus operator not found"));
+
+        List<Booking> bookingList =
+                bookingRepository.findByOperatorId(operator.getId());
+
+        return bookingList.stream()
+                .map(this::getBookingResponse)
+                .toList();
     }
 }

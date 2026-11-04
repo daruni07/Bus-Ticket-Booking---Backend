@@ -2,10 +2,8 @@ package com.springboot.busticketbooking.controller;
 
 import com.springboot.busticketbooking.dto.request.ScheduleReqDto;
 import com.springboot.busticketbooking.dto.request.ScheduleUpdateReqDto;
-import com.springboot.busticketbooking.dto.response.BusRespDto;
 import com.springboot.busticketbooking.dto.response.BusSearchRespDto;
 import com.springboot.busticketbooking.dto.response.ScheduleRespDto;
-import com.springboot.busticketbooking.model.Schedule;
 import com.springboot.busticketbooking.service.ScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +35,9 @@ public class ScheduleController {
     public ScheduleRespDto getScheduleById(@PathVariable Long scheduleId)
     {
         return scheduleService.getScheduleById(scheduleId);
+    }
+    @GetMapping("/api/schedule/getAll")
+    public List<ScheduleRespDto> getAllSchedules() {
+        return scheduleService.getAllSchedules();
     }
 }

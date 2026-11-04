@@ -32,6 +32,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final BookingDetailRepository bookingDetailRepository;
     private final ScheduleSeatRepository scheduleSeatRepository;
+    private final ETicketService eticketService;
     public void insertPayment( PaymentReqDto paymentReqDto,Long bookingId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Invalid booking id"));
@@ -53,6 +54,7 @@ public class PaymentService {
             scheduleSeat.setSeatStatus(SeatStatus.BOOKED);
             scheduleSeatRepository.save(scheduleSeat);
         }
+        eticketService.generateEticket(booking);
     }
 
     public PaymentRespDto getPaymentByBookingId(Long bookingId) {

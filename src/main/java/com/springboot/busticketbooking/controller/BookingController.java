@@ -30,10 +30,15 @@ public class BookingController {
     {
         return bookingService.getBookingById(bookingId);
     }
-    @PostMapping("/api/bookings/cancel/{bookingId}")
+    @PutMapping("/api/bookings/cancel/{bookingId}")
     public void cancelBooking(@PathVariable Long bookingId,Principal principal)
     {
         bookingService.cancelBooking(bookingId, principal.getName());
+    }
+    @GetMapping("/operator")
+    public List<BookingRespDto> getOperatorBookings(Principal principal) {
+
+        return bookingService.getOperatorBookings(principal.getName());
     }
 
 }

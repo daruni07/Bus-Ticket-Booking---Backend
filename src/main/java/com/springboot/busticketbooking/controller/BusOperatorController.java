@@ -3,7 +3,7 @@ package com.springboot.busticketbooking.controller;
 import com.springboot.busticketbooking.dto.request.BusOperatorReqDto;
 import com.springboot.busticketbooking.dto.request.BusOperatorUpdateReq;
 import com.springboot.busticketbooking.dto.response.BusOperatorRespDto;
-import com.springboot.busticketbooking.model.BusOperator;
+import com.springboot.busticketbooking.dto.response.BusRespDto;
 import com.springboot.busticketbooking.service.BusOperatorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class BusOperatorController {
     @GetMapping("/api/busOperator/get/{busOperatorId}")
     public BusOperatorRespDto getBusById(@PathVariable Long busOperatorId)
     {
-        return busOperatorService.getBusById(busOperatorId);
+        return busOperatorService.getBusOperatorById(busOperatorId);
     }
     @GetMapping("/api/busOperator/getAll")
     public List<BusOperatorRespDto> getAllBus()

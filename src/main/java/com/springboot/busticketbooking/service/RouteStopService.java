@@ -2,6 +2,7 @@ package com.springboot.busticketbooking.service;
 
 import com.springboot.busticketbooking.dto.request.RouteStopUpdateReqDto;
 import com.springboot.busticketbooking.dto.response.RouteRespDto;
+import com.springboot.busticketbooking.dto.response.RouteStopRespDto;
 import com.springboot.busticketbooking.exception.ResourceNotFoundException;
 import com.springboot.busticketbooking.dto.request.RouteStopReqDto;
 import com.springboot.busticketbooking.mapper.RouteStopMapper;
@@ -26,7 +27,10 @@ public class RouteStopService {
     public void insertRouteStop(RouteStopReqDto routeStopReqDto, Long routeId, Long stopId) {
         Stop stop=stopRepository.findById(stopId).orElseThrow(()->new ResourceNotFoundException("Invalid stop id"));
         Route route=routeRepository.findById(routeId).orElseThrow(()->new ResourceNotFoundException("Invalid route id"));
-        RouteStop routeStop= RouteStopMapper.mapToEntity(routeStopReqDto);
+        RouteStop routeStop= new RouteStop();
+        routeStop.setStopOrder(routeStopReqDto.stopOrder());
+        routeStop.setStop(stop);
+        routeStop.setRoute(route);
         routeStopRepository.save(routeStop);
     }
 
@@ -51,5 +55,9 @@ public class RouteStopService {
             routeStop.setStopOrder(routeStopUpdateReqDto.stopOrder());
         }
         routeStopRepository.save(routeStop);
+    }
+
+    public List<RouteStopRespDto> getRouteStopsByRouteId(Long routeId) {
+        return routeStopRepository.getRouteStopsByRouteId(routeId);
     }
 }

@@ -3,10 +3,8 @@ package com.springboot.busticketbooking;
 import com.springboot.busticketbooking.dto.request.BusOperatorReqDto;
 import com.springboot.busticketbooking.dto.request.BusOperatorUpdateReq;
 import com.springboot.busticketbooking.dto.response.BusOperatorRespDto;
-import com.springboot.busticketbooking.enums.Role;
 import com.springboot.busticketbooking.exception.ResourceNotFoundException;
 import com.springboot.busticketbooking.model.BusOperator;
-import com.springboot.busticketbooking.model.User;
 import com.springboot.busticketbooking.repository.BusOperatorRepository;
 import com.springboot.busticketbooking.service.BusOperatorService;
 import org.junit.jupiter.api.Test;
@@ -43,24 +41,24 @@ public class BusOperatorServiceTest {
     }
 
     @Test
-    void getBusByIdNotFoundTest() {
+    void getBusOperatorByIdNotFoundTest() {
         when(busOperatorRepository.findById(1L))
                 .thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class,
-                () -> busOperatorService.getBusById(1L));
+                () -> busOperatorService.getBusOperatorById(1L));
 
         verify(busOperatorRepository).findById(1L);
     }
 
     @Test
-    void getBusByIdTest() {
+    void getBusOperatorByIdTest() {
         BusOperator busOperator = mock(BusOperator.class);
 
         when(busOperatorRepository.findById(1L))
                 .thenReturn(Optional.of(busOperator));
 
-        BusOperatorRespDto result = busOperatorService.getBusById(1L);
+        BusOperatorRespDto result = busOperatorService.getBusOperatorById(1L);
 
         assertNotNull(result);
         verify(busOperatorRepository).findById(1L);
